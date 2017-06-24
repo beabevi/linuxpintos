@@ -13,6 +13,7 @@
 #include "threads/vaddr.h"
 #ifdef USERPROG
 #include "userprog/process.h"
+#include "filesys/file.h"
 #endif
 
 /* Random value for struct thread's `magic' member.
@@ -192,13 +193,23 @@ thread_create (const char *name, int priority,
   sf = alloc_frame (t, sizeof *sf);
   sf->eip = switch_entry;
 
-  /* Add to run queue. */
-  thread_unblock (t);
-
 #ifdef USERPROG
   t->available_descriptors = bitmap_create(128); // 128 = max possible file descr
   //bitmap_set_multiple(t->available_descriptors, 0, 2, true );
+
+	/**create the structure shared with its parent**/
+	struct child_status * c = (struct child_status*) malloc ( sizeof( struct child_status ) );
+	c->pid = tid;
+	c->ref_cnt = 2;
+	sema_init( &(c->load_sema), 0 );
+	sema_init( &(c->wait_sema), 0 );
+	lock_init( &(c->cnt_lock) );
+	list_push_back(&(thread_current()->children), &(c->elem));
+	t->parent = c;
 #endif 
+
+  /* Add to run queue. */
+  thread_unblock (t);
 
   return tid;
 }
@@ -285,17 +296,17 @@ thread_exit (void)
 	struct thread * current_thread = thread_current();
    struct bitmap * bmp = current_thread->available_descriptors;
    struct file ** array = current_thread->file_descriptors;
-   int fd;
-   if (bmp != NULL) {
+   size_t fd; 
+	if( bmp != NULL ){
 		 while((fd = bitmap_scan(bmp, 0, 1, true)) != BITMAP_ERROR ){
 		     file_close(array[fd]);
 		     bitmap_reset(bmp, fd);
 		     array[fd] = NULL;
 		 }
-     bitmap_destroy(bmp);
-   }
-
+		 bitmap_destroy(bmp);
+	}
   process_exit ();
+
 #endif
 
   /* Just set our status to dying and schedule another process.
@@ -343,6 +354,7 @@ void
 thread_set_nice (int nice UNUSED) 
 {
   /* Not yet implemented. */
+
 }
 
 /* Returns the current thread's nice value. */
@@ -454,8 +466,13 @@ init_thread (struct thread *t, const char *name, int priority)
   t->stack = (uint8_t *) t + PGSIZE;
   t->priority = priority;
   t->magic = THREAD_MAGIC;
-
-
+	
+#ifdef USERPROG
+	t->available_descriptors = NULL; // Initialized later, if returning into the thread_create() function
+	/**initialize the list of info shared with its (future) children**/
+	list_init( &(t->children) );
+	t->parent = NULL; // Initialized later, if returning into the thread_create() function 
+#endif
 }
 
 /* Allocates a SIZE-byte frame at the top of thread T's stack and

@@ -7,7 +7,10 @@
 
 #ifdef USERPROG 
 #include "lib/kernel/bitmap.h"
+#include "threads/synch.h"
+#include "malloc.h"
 #endif
+
 
 /* States in a thread's life cycle. */
 enum thread_status
@@ -27,6 +30,21 @@ typedef int tid_t;
 #define PRI_MIN 0                       /* Lowest priority. */
 #define PRI_DEFAULT 31                  /* Default priority. */
 #define PRI_MAX 63                      /* Highest priority. */
+
+
+#ifdef USERPROG
+struct child_status{
+	struct list_elem elem;
+	tid_t pid;
+	int exit_status;
+	int ref_cnt;
+	bool load_failed;
+	struct semaphore load_sema; 
+	struct semaphore wait_sema;
+	struct lock cnt_lock;  
+};
+#endif
+
 
 /* A kernel thread or user process.
 
@@ -108,6 +126,11 @@ struct thread
 		/* Array of pointers to struct FILE */
     struct file * file_descriptors[128];
     struct bitmap * available_descriptors; 
+
+		/* Parent and child information */
+		struct child_status * parent;
+		struct list children; 
+
 #endif
 
   };

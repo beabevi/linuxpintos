@@ -2,6 +2,8 @@
 #define FILESYS_FILE_H
 
 #include "filesys/off_t.h"
+// Own defined limit for a filename 
+#define MAX_FILE_NAME 255
 
 struct inode;
 

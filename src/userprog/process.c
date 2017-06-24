@@ -38,10 +38,37 @@ process_execute (const char *file_name)
     return TID_ERROR;
   strlcpy (fn_copy, file_name, PGSIZE);
 
+	//PASS ONLY THE FILE NAME AS THREAD NAME
+	char *copy, *save_ptr;
+	copy = palloc_get_page (0);
+  if (copy == NULL)
+    return TID_ERROR;
+	strlcpy (copy, file_name, PGSIZE);
+	copy = strtok_r(copy, " ", &save_ptr);
+
   /* Create a new thread to execute FILE_NAME. */
-  tid = thread_create (file_name, PRI_DEFAULT, start_process, fn_copy);
-  if (tid == TID_ERROR)
-    palloc_free_page (fn_copy); 
+  tid = thread_create (copy, PRI_DEFAULT, start_process, fn_copy);
+  if (tid == TID_ERROR){
+    palloc_free_page (fn_copy);
+ 	}
+	palloc_free_page (copy);
+
+	struct thread *t = thread_current();
+	struct child_status * c = NULL;
+	struct list_elem *e;
+	for (e = list_begin(&(t->children)); e != list_end(&(t->children)); e = list_next(e)){
+		c = list_entry(e, struct child_status, elem);
+		if (c->pid == tid) 
+			break;
+	}
+	/**the child_status for that child doesn't exist**/
+	if (c == NULL)
+		return -1;
+	/**wait for the load*/
+	sema_down(&(c->load_sema));
+	/**OR should we remove the struct from the list and free it?**/
+	if (c->load_failed) 
+		return -1;
   return tid;
 }
 
@@ -50,9 +77,28 @@ process_execute (const char *file_name)
 static void
 start_process (void *file_name_)
 {
+	struct thread *t = thread_current();
+
   char *file_name = file_name_;
   struct intr_frame if_;
   bool success;
+
+	static int ARGMAX = 32; 
+	char * argv[ARGMAX+1];
+	int argc = 0;  
+
+
+	/* Pushing the argument strings onto the stack */ 
+	char * token, * save_ptr; 
+	const char delim[] = " "; 
+	for(token = strtok_r(file_name, delim, &save_ptr); token != NULL; token = strtok_r(NULL, delim, &save_ptr) ){
+		if( argc > ARGMAX )
+			break; 
+		argv[argc] = token; 
+		argc++; 
+	}
+	
+	file_name = argv[0];
 
   /* Initialize interrupt frame and load executable. */
   memset (&if_, 0, sizeof if_);
@@ -62,11 +108,48 @@ start_process (void *file_name_)
   success = load (file_name, &if_.eip, &if_.esp);
 
   /* If load failed, quit. */
-  palloc_free_page (file_name);
-  if (!success) 
+ 
+  if (!success){ 	
+		// WARNING ATTENTION palloc() WAS BEFORE THE IF() ORIGINALLY 
+		palloc_free_page (file_name);
+		t->parent->load_failed = true;
+		t->parent->exit_status = -1;
+		sema_up(&(t->parent->load_sema));
     thread_exit ();
+	}
+	t->parent->load_failed = false;
+	sema_up(&(t->parent->load_sema));
+	int i; 
 
-  /* Start the user process by simulating a return from an
+	// Putting the argument strings onto the stack 
+	for( i = argc-1 ; i >= 0; i-- ){
+		if_.esp = (char*)(((char*)if_.esp) - strlen(argv[i])-1); 
+		strlcpy((char*)if_.esp, argv[i], strlen(argv[i])+1); 
+		*(argv+i) = (char*)if_.esp;
+	}
+	// Alignement 	
+	while(((int)if_.esp) % 4 != 0)
+		if_.esp = (char*)((char*)if_.esp - 1); 
+
+	// Pushing the argv array onto the stack 
+	if_.esp = (char**)((char**)if_.esp - 1 ); 
+	*((char**)if_.esp) = 0;
+	for( i = argc-1; i >= 0; i--){
+		if_.esp = (char**)((char**)if_.esp - 1 ); 
+		*((char**)if_.esp) = *(argv + i);
+	}
+  
+	// Main stack frame
+	if_.esp = (char**)((char**)if_.esp - 1); 
+	*((char**)if_.esp) = (char*)((char**)if_.esp + 1);  	
+	if_.esp = (int*)((int*)if_.esp - 1);
+	*((int*)if_.esp) = argc;  
+	// add 4 bytes offset for return address 
+	if_.esp = (int*)((int*)if_.esp - 1);
+	
+
+	palloc_free_page (file_name);
+	/* Start the user process by simulating a return from an
      interrupt, implemented by intr_exit (in
      threads/intr-stubs.S).  Because intr_exit takes all of its
      arguments on the stack in the form of a `struct intr_frame',
@@ -88,8 +171,21 @@ start_process (void *file_name_)
 int
 process_wait (tid_t child_tid UNUSED) 
 {
-	while(1){};
-  return -1;
+	struct thread *cur = thread_current ();
+	struct list_elem *e;
+	struct child_status *child = NULL;;
+	for (e = list_begin(&(cur->children)); e != list_end(&(cur->children)); e = list_next(e)){
+		child = list_entry(e, struct child_status, elem);
+		if (child->pid == child_tid)
+			break;
+	}
+	if (child == NULL)
+  	return -1;
+	sema_down( &(child->wait_sema) );
+	int exit_status = child->exit_status;
+	list_remove(e);
+	free(e);
+	return exit_status;
 }
 
 /* Free the current process's resources. */
@@ -115,8 +211,42 @@ process_exit (void)
       pagedir_activate (NULL);
       pagedir_destroy (pd);
     }
-}
 
+	int cnt;	
+	int exit_status = 1; 
+
+	if( cur->parent != NULL ){
+		lock_acquire( &(cur->parent->cnt_lock) );
+		cur->parent->ref_cnt--;
+		cnt = cur->parent->ref_cnt;
+		lock_release( &(cur->parent->cnt_lock) );
+		exit_status = cur->parent->exit_status; 
+		if (cnt == 0){
+			free(cur->parent);
+			cur->parent = NULL;
+		}
+	}
+	
+	struct list_elem *e = list_begin(&(cur->children));
+	while ( e != list_end(&(cur->children) ) ){
+		struct child_status *entry = list_entry(e, struct child_status, elem);
+		lock_acquire( &(entry->cnt_lock) );
+		entry->ref_cnt--;
+		cnt = entry->ref_cnt;
+		lock_release( &(entry->cnt_lock) );
+		struct list_elem * prev = e;
+		e = list_next(e);
+		if (cnt == 0){
+			list_remove(prev);
+			free(entry);
+		}
+	}
+	if (cur->parent != NULL)
+		sema_up(&(cur->parent->wait_sema));
+
+	printf("%s: exit(%d)\n", cur->name, exit_status); 
+
+}
 /* Sets up the CPU for running user code in the current
    thread.
    This function is called on every context switch. */
@@ -230,7 +360,7 @@ load (const char *file_name, void (**eip) (void), void **esp)
    /* Uncomment the following line to print some debug
      information. This will be useful when you debug the program
      stack.*/
-/*#define STACK_DEBUG*/
+//#define STACK_DEBUG
 
 #ifdef STACK_DEBUG
   printf("*esp is %p\nstack contents:\n", *esp);
@@ -380,7 +510,7 @@ validate_segment (const struct Elf32_Phdr *phdr, struct file *file)
   /* The segment must not be empty. */
   if (phdr->p_memsz == 0)
     return false;
-  
+ 
   /* The virtual memory region must both start and end within the
      user address space range. */
   if (!is_user_vaddr ((void *) phdr->p_vaddr))
@@ -462,6 +592,7 @@ load_segment (struct file *file, off_t ofs, uint8_t *upage,
       upage += PGSIZE;
     }
   return true;
+
 }
 
 /* Create a minimal stack by mapping a zeroed page at the top of
@@ -477,7 +608,7 @@ setup_stack (void **esp)
     {
       success = install_page (((uint8_t *) PHYS_BASE) - PGSIZE, kpage, true);
       if (success)
-        *esp = PHYS_BASE - 12;
+        *esp = PHYS_BASE;
       else
         palloc_free_page (kpage);
     }
