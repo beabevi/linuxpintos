@@ -1,0 +1,894 @@
+{
+  "title": null,
+  "height": 24,
+  "stdout": [
+    [
+      0.128375,
+      "beabe184@parlomba4:asciinema$ "
+    ],
+    [
+      2.258486,
+      "c"
+    ],
+    [
+      0.123903,
+      "d"
+    ],
+    [
+      0.040051,
+      " "
+    ],
+    [
+      1.029852,
+      "$"
+    ],
+    [
+      0.506023,
+      "H"
+    ],
+    [
+      0.142167,
+      "O"
+    ],
+    [
+      0.132778,
+      "M"
+    ],
+    [
+      0.174214,
+      "E"
+    ],
+    [
+      0.711902,
+      "/"
+    ],
+    [
+      0.403058,
+      "l"
+    ],
+    [
+      0.175017,
+      "i"
+    ],
+    [
+      0.127391,
+      "n"
+    ],
+    [
+      0.1017,
+      "u"
+    ],
+    [
+      0.344248,
+      "\b\b\b\b\b\b\b\b\b\b/home/beabe184/linuxpintos/"
+    ],
+    [
+      0.937424,
+      "s"
+    ],
+    [
+      0.246869,
+      "r"
+    ],
+    [
+      0.140465,
+      "c/"
+    ],
+    [
+      0.987207,
+      "t"
+    ],
+    [
+      0.167194,
+      "h"
+    ],
+    [
+      0.054996,
+      "r"
+    ],
+    [
+      0.136215,
+      "eads/"
+    ],
+    [
+      0.576167,
+      "\r\n"
+    ],
+    [
+      0.000777,
+      "beabe184@parlomba4:threads$ "
+    ],
+    [
+      2.043079,
+      "#"
+    ],
+    [
+      1.143739,
+      " "
+    ],
+    [
+      0.473902,
+      "R"
+    ],
+    [
+      0.142943,
+      "U"
+    ],
+    [
+      0.203332,
+      "n"
+    ],
+    [
+      0.165783,
+      "n"
+    ],
+    [
+      0.380694,
+      "\b\u001b[K"
+    ],
+    [
+      0.124259,
+      "\b\u001b[K"
+    ],
+    [
+      0.140145,
+      "\b\u001b[K"
+    ],
+    [
+      0.386525,
+      "u"
+    ],
+    [
+      0.169685,
+      "n"
+    ],
+    [
+      0.149128,
+      "n"
+    ],
+    [
+      0.129415,
+      "i"
+    ],
+    [
+      0.135373,
+      "n"
+    ],
+    [
+      0.114693,
+      "g"
+    ],
+    [
+      0.099108,
+      " "
+    ],
+    [
+      0.525998,
+      "l"
+    ],
+    [
+      0.433493,
+      "\b\u001b[K"
+    ],
+    [
+      0.276974,
+      "P"
+    ],
+    [
+      0.286656,
+      "r"
+    ],
+    [
+      0.165882,
+      "o"
+    ],
+    [
+      0.186853,
+      "j"
+    ],
+    [
+      0.157296,
+      "e"
+    ],
+    [
+      0.188766,
+      "c"
+    ],
+    [
+      0.19437,
+      "t"
+    ],
+    [
+      0.064593,
+      " "
+    ],
+    [
+      0.253845,
+      "2"
+    ],
+    [
+      0.073577,
+      " "
+    ],
+    [
+      0.474765,
+      "t"
+    ],
+    [
+      0.076569,
+      "e"
+    ],
+    [
+      0.177001,
+      "s"
+    ],
+    [
+      0.148503,
+      "t"
+    ],
+    [
+      0.13049,
+      "s"
+    ],
+    [
+      0.166612,
+      "\r\n"
+    ],
+    [
+      0.000155,
+      "beabe184@parlomba4:threads$ "
+    ],
+    [
+      1.701731,
+      "m"
+    ],
+    [
+      0.328379,
+      "\b\u001b[K"
+    ],
+    [
+      0.38385,
+      "m"
+    ],
+    [
+      0.103094,
+      "a"
+    ],
+    [
+      0.104704,
+      "k"
+    ],
+    [
+      0.111777,
+      "e"
+    ],
+    [
+      1.127829,
+      "\r\n"
+    ],
+    [
+      0.006662,
+      "mkdir -p build/devices\r\n"
+    ],
+    [
+      0.003761,
+      "mkdir -p build/lib\r\n"
+    ],
+    [
+      0.002579,
+      "mkdir -p build/lib/kernel\r\n"
+    ],
+    [
+      0.002686,
+      "mkdir -p build/lib/user\r\n"
+    ],
+    [
+      0.002694,
+      "mkdir -p build/tests/threads\r\n"
+    ],
+    [
+      0.003341,
+      "mkdir -p build/threads\r\n"
+    ],
+    [
+      0.003068,
+      "cp ../Makefile.build build/Makefile\r\n"
+    ],
+    [
+      0.00551,
+      "cd build && make all\r\n"
+    ],
+    [
+      0.072689,
+      "make[1]: Entering directory `/home/beabe184/linuxpintos/src/threads/build'\r\ngcc -m32 -E -nostdinc -I../.. -I../../lib -I../../lib/kernel -P ../../threads/kernel.lds.S > threads/kernel.lds.s\r\n"
+    ],
+    [
+      0.011341,
+      "gcc -m32 -c ../../threads/init.c -o threads/init.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF threads/init.d\r\n"
+    ],
+    [
+      0.101214,
+      "gcc -m32 -c ../../threads/thread.c -o threads/thread.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF threads/thread.d\r\n"
+    ],
+    [
+      0.109473,
+      "gcc -m32 -c ../../threads/switch.S -o threads/switch.o -Wa,--gstabs -nostdinc -I../.. -I../../lib -I../../lib/kernel  -MMD -MF threads/switch.d\r\n"
+    ],
+    [
+      0.016793,
+      "gcc -m32 -c ../../threads/interrupt.c -o threads/interrupt.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF threads/interrupt.d\r\n"
+    ],
+    [
+      0.075378,
+      "gcc -m32 -c ../../threads/intr-stubs.S -o threads/intr-stubs.o -Wa,--gstabs -nostdinc -I../.. -I../../lib -I../../lib/kernel  -MMD -MF threads/intr-stubs.d\r\n"
+    ],
+    [
+      0.0235,
+      "gcc -m32 -c ../../threads/synch.c -o threads/synch.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF threads/synch.d\r\n"
+    ],
+    [
+      0.071804,
+      "gcc -m32 -c ../../threads/palloc.c -o threads/palloc.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF threads/palloc.d\r\n"
+    ],
+    [
+      0.055297,
+      "gcc -m32 -c ../../threads/malloc.c -o threads/malloc.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF threads/malloc.d\r\n"
+    ],
+    [
+      0.07139,
+      "gcc -m32 -c ../../threads/start.S -o threads/start.o -Wa,--gstabs -nostdinc -I../.. -I../../lib -I../../lib/kernel  -MMD -MF threads/start.d\r\n"
+    ],
+    [
+      0.017572,
+      "gcc -m32 -c ../../threads/boundedbuffer.c -o threads/boundedbuffer.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF threads/boundedbuffer.d\r\n"
+    ],
+    [
+      0.012025,
+      "../../threads/boundedbuffer.c: In function ‘bb_destroy’:\r\n"
+    ],
+    [
+      0.000196,
+      "../../threads/boundedbuffer.c:21:40: warning: unused parameter ‘bb’ [-Wunused-parameter]\r\n void bb_destroy(struct bounded_buffer *bb)\r\n                                        ^\r\n"
+    ],
+    [
+      2.4e-05,
+      "../../threads/boundedbuffer.c: In function ‘bb_read’:\r\n"
+    ],
+    [
+      0.000235,
+      "../../threads/boundedbuffer.c:26:36: warning: unused parameter ‘bb’ [-Wunused-parameter]\r\n int bb_read(struct bounded_buffer *bb)\r\n                                    ^\r\n"
+    ],
+    [
+      4.1e-05,
+      "../../threads/boundedbuffer.c: In function ‘bb_write’:\r\n"
+    ],
+    [
+      0.000222,
+      "../../threads/boundedbuffer.c:31:38: warning: unused parameter ‘bb’ [-Wunused-parameter]\r\n void bb_write(struct bounded_buffer *bb, int value)\r\n                                      ^\r\n"
+    ],
+    [
+      0.000221,
+      "../../threads/boundedbuffer.c:31:46: warning: unused parameter ‘value’ [-Wunused-parameter]\r\n void bb_write(struct bounded_buffer *bb, int value)\r\n                                              ^\r\n"
+    ],
+    [
+      0.000355,
+      "../../threads/boundedbuffer.c: In function ‘bb_read’:\r\n"
+    ],
+    [
+      0.000169,
+      "../../threads/boundedbuffer.c:29:1: warning: control reaches end of non-void function [-Wreturn-type]\r\n }\r\n ^\r\n"
+    ],
+    [
+      0.017164,
+      "gcc -m32 -c ../../threads/synchlist.c -o threads/synchlist.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF threads/synchlist.d\r\n"
+    ],
+    [
+      0.036829,
+      "gcc -m32 -c ../../devices/timer.c -o devices/timer.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF devices/timer.d\r\n"
+    ],
+    [
+      0.021077,
+      "../../devices/timer.c: In function ‘timer_interrupt’:\r\n"
+    ],
+    [
+      0.000224,
+      "../../devices/timer.c:163:10: warning: unused variable ‘now’ [-Wunused-variable]\r\n  int64_t now = timer_ticks ();"
+    ],
+    [
+      3.3e-05,
+      "\r\n          ^\r\n"
+    ],
+    [
+      0.000501,
+      "../../devices/timer.c: In function ‘less_f’:\r\n"
+    ],
+    [
+      0.000211,
+      "../../devices/timer.c:239:73: warning: unused parameter ‘aux’ [-Wunused-parameter]\r\n bool less_f (const struct list_elem *a,const struct list_elem *b, void *aux){\r\n                                                                         ^\r\n"
+    ],
+    [
+      0.058427,
+      "gcc -m32 -c ../../devices/kbd.c -o devices/kbd.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF devices/kbd.d\r\n"
+    ],
+    [
+      0.04951,
+      "gcc -m32 -c ../../devices/vga.c -o devices/vga.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF devices/vga.d\r\n"
+    ],
+    [
+      0.044515,
+      "gcc -m32 -c ../../devices/serial.c -o devices/serial.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF devices/serial.d\r\n"
+    ],
+    [
+      0.051985,
+      "gcc -m32 -c ../../devices/disk.c -o devices/disk.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF devices/disk.d\r\n"
+    ],
+    [
+      0.113714,
+      "gcc -m32 -c ../../devices/input.c -o devices/input.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF devices/input.d\r\n"
+    ],
+    [
+      0.032692,
+      "gcc -m32 -c ../../devices/intq.c -o devices/intq.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF devices/intq.d\r\n"
+    ],
+    [
+      0.049446,
+      "gcc -m32 -c ../../lib/debug.c -o lib/debug.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/debug.d\r\n"
+    ],
+    [
+      0.028794,
+      "gcc -m32 -c ../../lib/random.c -o lib/random.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/random.d\r\n"
+    ],
+    [
+      0.035988,
+      "gcc -m32 -c ../../lib/stdio.c -o lib/stdio.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/stdio.d\r\n"
+    ],
+    [
+      0.167291,
+      "gcc -m32 -c ../../lib/stdlib.c -o lib/stdlib.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/stdlib.d\r\n"
+    ],
+    [
+      0.0787,
+      "gcc -m32 -c ../../lib/string.c -o lib/string.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/string.d\r\n"
+    ],
+    [
+      0.101533,
+      "gcc -m32 -c ../../lib/arithmetic.c -o lib/arithmetic.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/arithmetic.d\r\n"
+    ],
+    [
+      0.042809,
+      "gcc -m32 -c ../../lib/kernel/debug.c -o lib/kernel/debug.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/kernel/debug.d\r\n"
+    ],
+    [
+      0.029594,
+      "gcc -m32 -c ../../lib/kernel/list.c -o lib/kernel/list.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/kernel/list.d\r\n"
+    ],
+    [
+      0.109822,
+      "gcc -m32 -c ../../lib/kernel/bitmap.c -o lib/kernel/bitmap.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/kernel/bitmap.d\r\n"
+    ],
+    [
+      0.082346,
+      "gcc -m32 -c ../../lib/kernel/hash.c -o lib/kernel/hash.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/kernel/hash.d\r\n"
+    ],
+    [
+      0.083992,
+      "gcc -m32 -c ../../lib/kernel/console.c -o lib/kernel/console.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/kernel/console.d\r\n"
+    ],
+    [
+      0.048096,
+      "gcc -m32 -c ../../lib/kernel/slist.c -o lib/kernel/slist.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF lib/kernel/slist.d\r\n"
+    ],
+    [
+      0.044498,
+      "gcc -m32 -c ../../tests/threads/tests.c -o tests/threads/tests.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/tests.d\r\n"
+    ],
+    [
+      0.033907,
+      "gcc -m32 -c ../../tests/threads/alarm-wait.c -o tests/threads/alarm-wait.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/alarm-wait.d\r\n"
+    ],
+    [
+      0.051759,
+      "gcc -m32 -c ../../tests/threads/alarm-simultaneous.c -o tests/threads/alarm-simultaneous.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/alarm-simultaneous.d\r\n"
+    ],
+    [
+      0.042501,
+      "gcc -m32 -c ../../tests/threads/alarm-priority.c -o tests/threads/alarm-priority.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/alarm-priority.d\r\n"
+    ],
+    [
+      0.040294,
+      "gcc -m32 -c ../../tests/threads/alarm-zero.c -o tests/threads/alarm-zero.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/alarm-zero.d\r\n"
+    ],
+    [
+      0.025226,
+      "gcc -m32 -c ../../tests/threads/alarm-negative.c -o tests/threads/alarm-negative.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/alarm-negative.d\r\n"
+    ],
+    [
+      0.02463,
+      "gcc -m32 -c ../../tests/threads/priority-change.c -o tests/threads/priority-change.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-change.d\r\n"
+    ],
+    [
+      0.032088,
+      "gcc -m32 -c ../../tests/threads/priority-donate-one.c -o tests/threads/priority-donate-one.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-donate-one.d\r\n"
+    ],
+    [
+      0.03617,
+      "gcc -m32 -c ../../tests/threads/priority-donate-multiple.c -o tests/threads/priority-donate-multiple.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-donate-multiple.d\r\n"
+    ],
+    [
+      0.036334,
+      "gcc -m32 -c ../../tests/threads/priority-donate-multiple2.c -o tests/threads/priority-donate-multiple2.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-donate-multiple2.d\r\n"
+    ],
+    [
+      0.037668,
+      "gcc -m32 -c ../../tests/threads/priority-donate-nest.c -o tests/threads/priority-donate-nest.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-donate-nest.d\r\n"
+    ],
+    [
+      0.037456,
+      "gcc -m32 -c ../../tests/threads/priority-donate-sema.c -o tests/threads/priority-donate-sema.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-donate-sema.d\r\n"
+    ],
+    [
+      0.03846,
+      "gcc -m32 -c ../../tests/threads/priority-donate-lower.c -o tests/threads/priority-donate-lower.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-donate-lower.d\r\n"
+    ],
+    [
+      0.031409,
+      "gcc -m32 -c ../../tests/threads/priority-fifo.c -o tests/threads/priority-fifo.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-fifo.d\r\n"
+    ],
+    [
+      0.042883,
+      "gcc -m32 -c ../../tests/threads/priority-preempt.c -o tests/threads/priority-preempt.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-preempt.d\r\n"
+    ],
+    [
+      0.030774,
+      "gcc -m32 -c ../../tests/threads/priority-sema.c -o tests/threads/priority-sema.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-sema.d\r\n"
+    ],
+    [
+      0.03462,
+      "gcc -m32 -c ../../tests/threads/priority-condvar.c -o tests/threads/priority-condvar.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-condvar.d\r\n"
+    ],
+    [
+      0.035877,
+      "gcc -m32 -c ../../tests/threads/priority-donate-chain.c -o tests/threads/priority-donate-chain.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/priority-donate-chain.d\r\n"
+    ],
+    [
+      0.041018,
+      "gcc -m32 -c ../../tests/threads/mlfqs-load-1.c -o tests/threads/mlfqs-load-1.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/mlfqs-load-1.d\r\n"
+    ],
+    [
+      0.033149,
+      "gcc -m32 -c ../../tests/threads/mlfqs-load-60.c -o tests/threads/mlfqs-load-60.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/mlfqs-load-60.d\r\n"
+    ],
+    [
+      0.038507,
+      "gcc -m32 -c ../../tests/threads/mlfqs-load-avg.c -o tests/threads/mlfqs-load-avg.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/mlfqs-load-avg.d\r\n"
+    ],
+    [
+      0.04202,
+      "gcc -m32 -c ../../tests/threads/mlfqs-recent-1.c -o tests/threads/mlfqs-recent-1.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/mlfqs-recent-1.d\r\n"
+    ],
+    [
+      0.038042,
+      "gcc -m32 -c ../../tests/threads/mlfqs-fair.c -o tests/threads/mlfqs-fair.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/mlfqs-fair.d\r\n"
+    ],
+    [
+      0.054552,
+      "gcc -m32 -c ../../tests/threads/mlfqs-block.c -o tests/threads/mlfqs-block.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/mlfqs-block.d\r\n"
+    ],
+    [
+      0.03873,
+      "gcc -m32 -c ../../tests/threads/threadtest.c -o tests/threads/threadtest.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/threadtest.d\r\n"
+    ],
+    [
+      0.064155,
+      "gcc -m32 -c ../../tests/threads/simplethreadtest.c -o tests/threads/simplethreadtest.o -g -msoft-float -O -fno-stack-protector -nostdinc -I../.. -I../../lib -I../../lib/kernel -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers  -MMD -MF tests/threads/simplethreadtest.d\r\n"
+    ],
+    [
+      0.031106,
+      "ld -melf_i386 -T threads/kernel.lds.s -o kernel.o threads/init.o threads/thread.o threads/switch.o threads/interrupt.o threads/intr-stubs.o threads/synch.o threads/palloc.o threads/malloc.o threads/start.o threads/boundedbuffer.o threads/synchlist.o devices/timer.o devices/kbd.o devices/vga.o devices/serial.o devices/disk.o devices/input.o devices/intq.o lib/debug.o lib/random.o lib/stdio.o lib/stdlib.o lib/string.o lib/arithmetic.o lib/kernel/debug.o lib/kernel/list.o lib/kernel/bitmap.o lib/kernel/hash.o lib/kernel/console.o lib/kernel/slist.o tests/threads/tests.o tests/threads/alarm-wait.o tests/threads/alarm-simultaneous.o tests/threads/alarm-priority.o tests/threads/alarm-zero.o tests/threads/alarm-negative.o tests/threads/priority-change.o tests/threads/priority-donate-one.o tests/threads/priority-donate-multiple.o tests/threads/priority-donate-multiple2.o tests/threads/priority-donate-nest.o tests/threads/priority-donate-sema.o tests/threads/priority-donate-lower.o tests/threads/priority-fifo.o tests/"
+    ],
+    [
+      8e-05,
+      "threads/priority-preempt.o tests/threads/priority-sema.o tests/threads/priority-condvar.o tests/threads/priority-donate-chain.o tests/threads/mlfqs-load-1.o tests/threads/mlfqs-load-60.o tests/threads/mlfqs-load-avg.o tests/threads/mlfqs-recent-1.o tests/threads/mlfqs-fair.o tests/threads/mlfqs-block.o tests/threads/threadtest.o tests/threads/simplethreadtest.o\r\n"
+    ],
+    [
+      0.067819,
+      "objcopy -O binary -R .note -R .comment -S kernel.o kernel.bin.tmp\r\n"
+    ],
+    [
+      0.012256,
+      "dd if=kernel.bin.tmp of=kernel.bin bs=4096 conv=sync\r\n"
+    ],
+    [
+      0.005139,
+      "19+1 records in\r\n20+0 records out\r\n81920 bytes (82 kB) copied"
+    ],
+    [
+      3.1e-05,
+      ", 0.00339854 s, 24.1 MB/s\r\n"
+    ],
+    [
+      0.000142,
+      "rm kernel.bin.tmp\r\n"
+    ],
+    [
+      0.003067,
+      "gcc -m32 -c ../../threads/loader.S -o threads/loader.o -Wa,--gstabs -nostdinc -I../.. -I../../lib -I../../lib/kernel  -DKERNEL_LOAD_PAGES=`perl -e 'print +(-s \"kernel.bin\") / 4096;'`\r\n"
+    ],
+    [
+      0.022528,
+      "ld -melf_i386 -N -e start -Ttext 0x7c00 --oformat binary -o loader.bin threads/loader.o\r\n"
+    ],
+    [
+      0.006323,
+      "cat loader.bin kernel.bin > os.dsk\r\n"
+    ],
+    [
+      0.007204,
+      "make[1]: Leaving directory `/home/beabe184/linuxpintos/src/threads/build'\r\n"
+    ],
+    [
+      0.001069,
+      "beabe184@parlomba4:threads$ "
+    ],
+    [
+      2.832979,
+      "c"
+    ],
+    [
+      0.111586,
+      "d"
+    ],
+    [
+      0.084152,
+      " "
+    ],
+    [
+      0.227542,
+      "b"
+    ],
+    [
+      0.145738,
+      "u"
+    ],
+    [
+      0.149431,
+      "ild/"
+    ],
+    [
+      0.858576,
+      "\r\n"
+    ],
+    [
+      0.000219,
+      "beabe184@parlomba4:build$ "
+    ],
+    [
+      6.062248,
+      "m"
+    ],
+    [
+      0.111573,
+      "a"
+    ],
+    [
+      0.101615,
+      "k"
+    ],
+    [
+      0.202974,
+      "e"
+    ],
+    [
+      0.02892,
+      " "
+    ],
+    [
+      1.970528,
+      "S"
+    ],
+    [
+      0.09635,
+      "I"
+    ],
+    [
+      0.122833,
+      "M"
+    ],
+    [
+      0.169756,
+      "U"
+    ],
+    [
+      0.169166,
+      "L"
+    ],
+    [
+      0.069748,
+      "A"
+    ],
+    [
+      0.218746,
+      "T"
+    ],
+    [
+      0.093887,
+      "I"
+    ],
+    [
+      0.059022,
+      "O"
+    ],
+    [
+      0.261511,
+      "\b\u001b[K"
+    ],
+    [
+      0.401901,
+      "\b\u001b[K"
+    ],
+    [
+      0.233751,
+      "O"
+    ],
+    [
+      0.079932,
+      "R"
+    ],
+    [
+      1.342897,
+      "="
+    ],
+    [
+      1.020045,
+      "-"
+    ],
+    [
+      0.121603,
+      "-"
+    ],
+    [
+      0.107065,
+      "q"
+    ],
+    [
+      0.184822,
+      "e"
+    ],
+    [
+      0.095318,
+      "m"
+    ],
+    [
+      0.143226,
+      "u"
+    ],
+    [
+      0.145566,
+      " "
+    ],
+    [
+      4.50548,
+      "c"
+    ],
+    [
+      0.122102,
+      "h"
+    ],
+    [
+      0.096378,
+      "e"
+    ],
+    [
+      0.155926,
+      "c"
+    ],
+    [
+      0.084993,
+      "k"
+    ],
+    [
+      1.854922,
+      "\r\n"
+    ],
+    [
+      0.089405,
+      "pintos -v -k -T 60 --qemu  -- -q   run alarm-single < /dev/null 2> tests/threads/alarm-single.errors > tests/threads/alarm-single.output\r\n"
+    ],
+    [
+      3.124811,
+      "perl -I../.. ../../tests/threads/alarm-single.ck tests/threads/alarm-single tests/threads/alarm-single.result\r\n"
+    ],
+    [
+      0.061026,
+      "pass tests/threads/alarm-single\r\n"
+    ],
+    [
+      0.002743,
+      "pintos -v -k -T 60 --qemu  -- -q   run alarm-multiple < /dev/null 2> tests/threads/alarm-multiple.errors > tests/threads/alarm-multiple.output\r\n"
+    ],
+    [
+      6.174833,
+      "perl -I../.. ../../tests/threads/alarm-multiple.ck tests/threads/alarm-multiple tests/threads/alarm-multiple.result\r\n"
+    ],
+    [
+      0.062632,
+      "pass tests/threads/alarm-multiple\r\n"
+    ],
+    [
+      0.001652,
+      "pintos -v -k -T 60 --qemu  -- -q   run alarm-simultaneous < /dev/null 2> tests/threads/alarm-simultaneous.errors > tests/threads/alarm-simultaneous.output\r\n"
+    ],
+    [
+      3.125654,
+      "perl -I../.. ../../tests/threads/alarm-simultaneous.ck tests/threads/alarm-simultaneous tests/threads/alarm-simultaneous.result\r\n"
+    ],
+    [
+      0.060991,
+      "pass tests/threads/alarm-simultaneous\r\n"
+    ],
+    [
+      0.001564,
+      "pintos -v -k -T 60 --qemu  -- -q   run alarm-zero < /dev/null 2> tests/threads/alarm-zero.errors > tests/threads/alarm-zero.output\r\n"
+    ],
+    [
+      0.592422,
+      "perl -I../.. ../../tests/threads/alarm-zero.ck tests/threads/alarm-zero tests/threads/alarm-zero.result\r\n"
+    ],
+    [
+      0.057882,
+      "pass tests/threads/alarm-zero\r\n"
+    ],
+    [
+      0.001463,
+      "pintos -v -k -T 60 --qemu  -- -q   run alarm-negative < /dev/null 2> tests/threads/alarm-negative.errors > tests/threads/alarm-negative.output\r\n"
+    ],
+    [
+      0.586833,
+      "perl -I../.. ../../tests/threads/alarm-negative.ck tests/threads/alarm-negative tests/threads/alarm-negative.result\r\n"
+    ],
+    [
+      0.054824,
+      "pass tests/threads/alarm-negative\r\n"
+    ],
+    [
+      0.014253,
+      "pass tests/threads/alarm-single\r\npass tests/threads/alarm-multiple\r\npass tests/threads/alarm-simultaneous\r\npass tests/threads/alarm-zero\r\npass tests/threads/alarm-negative\r\n"
+    ],
+    [
+      0.005654,
+      "All 5 tests passed.\r\n"
+    ],
+    [
+      0.00078,
+      "beabe184@parlomba4:build$ "
+    ],
+    [
+      2.477662,
+      "e"
+    ],
+    [
+      0.22765,
+      "x"
+    ],
+    [
+      0.148484,
+      "i"
+    ],
+    [
+      0.159092,
+      "t"
+    ],
+    [
+      0.117383,
+      "\r\n"
+    ]
+  ],
+  "command": null,
+  "env": {
+    "SHELL": "/bin/bash",
+    "TERM": "xterm"
+  },
+  "version": 1,
+  "duration": 68.619292,
+  "width": 80
+}
