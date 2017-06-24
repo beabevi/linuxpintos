@@ -12,12 +12,15 @@
 #include "process.h"
 #include "pagedir.h"
 
+//static struct lock syscall_lock; 
+
 static void syscall_handler (struct intr_frame *);
 
 void
 syscall_init (void) 
 {
   intr_register_int (0x30, 3, INTR_ON, syscall_handler, "syscall");
+	//lock_init(&syscall_lock); 
 }
 
 // Performs the exit of the current thread if a syscall is done with invalid parameters 
@@ -59,8 +62,12 @@ static bool  perform_create(struct intr_frame* f UNUSED){
 			bad_parameters_exit(); 
 			return false; 
 		}
-		if ( filename[i] == '\0' )
-			return filesys_create(filename, init_size);		 	
+		if ( filename[i] == '\0' ){
+			//lock_acquire(&syscall_lock); 
+			int res = filesys_create(filename, init_size);		 	
+			//lock_release(&syscall_lock); 
+			return res; 		
+		}
 	}while( ++i <= MAX_FILE_NAME );
   return false; 
 }
@@ -105,8 +112,10 @@ static int perform_open(struct intr_frame *f UNUSED){
   if (fd == BITMAP_ERROR)
     return -1;
 	// Continue, try to open the file... 
+	//lock_acquire(&syscall_lock); 
   struct file * fs = filesys_open(filename);
-  if( fs == NULL )
+	//lock_release(&syscall_lock);   
+	if( fs == NULL )
     return -1;
 
   array[fd] = fs;
@@ -129,8 +138,10 @@ static void perform_close(struct intr_frame *f UNUSED){
   fd -= 2;
  	if(bitmap_test(bmp, fd)){
      bitmap_reset(bmp, fd);
+		 //lock_acquire(&syscall_lock);
      file_close(array[fd]);
-     array[fd] = NULL;
+     //lock_release(&syscall_lock); 
+		 array[fd] = NULL;
    }
 }
 
@@ -177,11 +188,11 @@ static int perform_read(struct intr_frame *f UNUSED){
   struct thread * current_thread = thread_current();
   struct bitmap * bmp = current_thread->available_descriptors;
   struct file ** array = current_thread->file_descriptors;
-  /* Test if the file struct exists, and then free it   */ 
+  /* Test if the file struct exists, and then read it   */ 
 	fd -= 2;
   if(bitmap_test(bmp, fd)){
-    return file_read(array[fd], buffer, size);
-  }else{
+		return file_read(array[fd], buffer, size);
+	}else{
     return -1;
   }
 }
@@ -208,7 +219,7 @@ static int perform_write(struct intr_frame *f UNUSED){
 		return -1; 
 	}
 	// Check whether the memory which we read from is valid 
-	int i = 0; 
+	unsigned int i = 0; 
 	while( i++ < size ){
 		if ( !valid_pointer(buffer + i) ){
 			bad_parameters_exit(); 
@@ -230,7 +241,7 @@ static int perform_write(struct intr_frame *f UNUSED){
 	fd -= 2; 
   if(bitmap_test(bmp, fd)){
     return file_write(array[fd], buffer, size);
-  }else{
+	}else{
     return -1;
   }
 }
@@ -282,6 +293,115 @@ static int perform_wait(struct intr_frame* f){
 	return process_wait(pid);
 }
 
+static void perform_seek(struct intr_frame *f){
+	if(!valid_pointer_to_size(((int*)f->esp)+1, sizeof(int))){
+		bad_parameters_exit();
+		return;  
+	}
+  int fd  = * (((int*)f->esp)+1);
+	if(!valid_pointer_to_size(((int*)f->esp)+2, sizeof(int))){
+		bad_parameters_exit();
+		return;  
+	}
+	int pos  = * (((int*)f->esp)+2);
+
+	if(!correct_file_fd(fd))
+		return;
+
+  struct thread * current_thread = thread_current();
+  struct bitmap * bmp = current_thread->available_descriptors;
+  struct file ** array = current_thread->file_descriptors;
+  /* Test if the file struct exists   */ 
+	fd -= 2;
+  if(bitmap_test(bmp, fd)){
+		off_t len = file_length(array[fd]);     
+		if( pos > len ){
+			file_seek(array[fd], len); 
+		}else{
+			file_seek(array[fd], pos); 
+		}
+  }
+}
+
+static int perform_tell(struct intr_frame *f){
+	if(!valid_pointer_to_size(((int*)f->esp)+1, sizeof(int))){
+		bad_parameters_exit();
+		return -1;  
+	}
+  int fd  = * (((int*)f->esp)+1);
+	if(!correct_file_fd(fd))
+		return -1;
+
+  struct thread * current_thread = thread_current();
+  struct bitmap * bmp = current_thread->available_descriptors;
+  struct file ** array = current_thread->file_descriptors;
+  /* Test if the file struct exists   */ 
+	fd -= 2;
+  if(bitmap_test(bmp, fd)){
+		return file_tell(array[fd]); 
+  }
+	return -1; 
+}
+
+static int perform_filesize(struct intr_frame *f){
+	if(!valid_pointer_to_size(((int*)f->esp)+1, sizeof(int))){
+		bad_parameters_exit();
+		return -1;  
+	}
+  int fd  = * (((int*)f->esp)+1);
+	if(!correct_file_fd(fd))
+		return -1;
+
+  struct thread * current_thread = thread_current();
+  struct bitmap * bmp = current_thread->available_descriptors;
+  struct file ** array = current_thread->file_descriptors;
+  /* Test if the file struct exists   */ 
+	fd -= 2;
+  if(bitmap_test(bmp, fd)){
+		return file_length(array[fd]); 
+  }
+	return -1; 
+}
+
+static bool perform_remove(struct intr_frame *f){
+	if(!valid_pointer_to_size(((int*)f->esp)+1, sizeof(char*))){
+		bad_parameters_exit();
+		return -1 ;  
+	}  
+	const char* filename =(char*) *(((int*)f->esp)+1);
+	// Checking pointer to file name
+	if( filename == NULL ){
+		bad_parameters_exit(); 
+		return -1; 
+	}
+	// Checking the string
+	int i = 0;  
+	do {
+		if ( !valid_pointer(filename + i) ){
+			bad_parameters_exit(); 
+			return -1; 
+		}
+		// If file name ok, then break and go to filesys_remove() ...
+		if ( filename[i] == '\0' )
+			break; 	 	
+	}while( ++i <= MAX_FILE_NAME );
+	// File name is too long or no terminator, error 
+	if(i > MAX_FILE_NAME )	{
+		bad_parameters_exit(); 
+  	return -1; 
+	}
+
+/*  struct thread * current_thread = thread_current();
+  struct bitmap * bmp = current_thread->available_descriptors;
+  struct file ** array = current_thread->file_descriptors;
+*/  
+	// Continue, try to remove the file... 
+	//lock_acquire(&syscall_lock); 
+  bool success = filesys_remove(filename);
+	//lock_release(&syscall_lock);   
+	return success;
+}
+
 static void
 syscall_handler (struct intr_frame *f UNUSED) 
 {
@@ -319,6 +439,18 @@ syscall_handler (struct intr_frame *f UNUSED)
 	case SYS_WAIT:
 		f->eax = perform_wait(f);
 		break;
+	case SYS_SEEK:
+		perform_seek(f); 
+		break; 
+	case SYS_TELL:
+		f->eax = perform_tell(f); 
+		break; 
+	case SYS_FILESIZE: 
+		f->eax = perform_filesize(f); 
+		break; 
+	case SYS_REMOVE: 
+		f->eax = perform_remove(f); 
+		break; 
   default:
 		bad_parameters_exit(); 
     break;
