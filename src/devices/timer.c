@@ -20,6 +20,14 @@
 /* Number of timer ticks since OS booted. */
 static int64_t ticks;
 
+struct sleep_info{
+		struct list_elem sleep_elem;
+		int64_t wake_up_time;
+		struct semaphore sleep_sema;
+};
+
+static struct list sleeping_list;
+
 /* Number of loops per timer tick.
    Initialized by timer_calibrate(). */
 static unsigned loops_per_tick;
@@ -28,6 +36,8 @@ static intr_handler_func timer_interrupt;
 static bool too_many_loops (unsigned loops);
 static void busy_wait (int64_t loops);
 static void real_time_sleep (int64_t num, int32_t denom);
+
+bool less_f (const struct list_elem *a,const struct list_elem *b, void *aux);
 
 /* Sets up the 8254 Programmable Interval Timer (PIT) to
    interrupt PIT_FREQ times per second, and registers the
@@ -44,6 +54,8 @@ timer_init (void)
   outb (0x40, count >> 8);
 
   intr_register_ext (0x20, timer_interrupt, "8254 Timer");
+
+	list_init( &sleeping_list ); 
 }
 
 /* Calibrates loops_per_tick, used to implement brief delays. */
@@ -97,10 +109,20 @@ void
 timer_sleep (int64_t ticks) 
 {
   int64_t start = timer_ticks ();
+	//printf("DEBUG--->start %d\n",start);
 
   ASSERT (intr_get_level () == INTR_ON);
-  while (timer_elapsed (start) < ticks) 
-    thread_yield ();
+  /**while (timer_elapsed (start) < ticks) 
+    thread_yield ();**/
+
+
+	struct sleep_info s;
+	sema_init( &(s.sleep_sema), 0 );
+	s.wake_up_time= start+ticks;
+	enum intr_level old_level = intr_disable ();
+  list_insert_ordered(&sleeping_list, &(s.sleep_elem), less_f, NULL);
+  intr_set_level (old_level);
+	sema_down(&(s.sleep_sema));
 }
 
 /* Suspends execution for approximately MS milliseconds. */
@@ -137,6 +159,17 @@ timer_interrupt (struct intr_frame *args UNUSED)
 {
   ticks++;
   thread_tick ();
+	enum intr_level old_level = intr_disable ();
+	int64_t now = timer_ticks ();
+	struct sleep_info* s;
+	while(!list_empty (&sleeping_list)){		
+		s = list_entry (list_begin(&sleeping_list), struct sleep_info, sleep_elem);
+		if (s->wake_up_time > ticks ) 
+			break;
+  	list_pop_front(&sleeping_list);
+  	sema_up(&(s->sleep_sema));		
+	}
+	intr_set_level (old_level);
 }
 
 /* Returns true if LOOPS iterations waits for more than one timer
@@ -201,4 +234,13 @@ real_time_sleep (int64_t num, int32_t denom)
       busy_wait (loops_per_tick * num / 1000 * TIMER_FREQ / (denom / 1000)); 
     }
 }
+
+/* Performs integer comparison between wake-up times of the threads */ 
+bool less_f (const struct list_elem *a,const struct list_elem *b, void *aux){
+	struct sleep_info * s1, *s2; 
+	s1 = list_entry(a, struct sleep_info, sleep_elem);  
+	s2 = list_entry(b, struct sleep_info, sleep_elem);
+	return s1->wake_up_time <= s2->wake_up_time; 
+}
+
 
