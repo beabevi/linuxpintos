@@ -4,3 +4,4 @@
 *.dsk
 .svn
 build/
+src/examples
