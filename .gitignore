@@ -1,0 +1,6 @@
+*~
+*.d
+*.o
+*.dsk
+.svn
+build/
