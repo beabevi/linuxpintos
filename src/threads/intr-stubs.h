@@ -14,6 +14,6 @@ typedef void intr_stub_func (void);
 extern intr_stub_func *intr_stubs[256];
 
 /* Interrupt return path. */
-void intr_exit (void);
+void intr_exit(void);
 
 #endif /* threads/intr-stubs.h */

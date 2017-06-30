@@ -11,8 +11,8 @@
 #include "threads/synch.h"
 
 struct bounded_buffer {
-  int size;
-  // You may add other data fields required for the bounded buffer
+	int size;
+	// You may add other data fields required for the bounded buffer
 
 };
 

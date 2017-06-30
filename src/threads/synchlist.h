@@ -1,11 +1,11 @@
-// synchlist.h 
+// synchlist.h
 //	Data structures for synchronized access to a list.
 //
 //	Implemented by surrounding the List abstraction
 //	with synchronization routines.
 //
 // Copyright (c) 1992-1993 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
+// All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
 //
 // modified by Vlad Jahundovics for Pintos (translation from C++ to C)
@@ -22,15 +22,14 @@
 //	2. One thread at a time can access list data structures
 
 struct SynchList {
-  struct list sl_list;
-  struct lock sl_lock;
-  struct condition sl_empty;
+	struct list sl_list;
+	struct lock sl_lock;
+	struct condition sl_empty;
 };
 
-struct SL_element
-{
-  struct list_elem elem;
-  void *item;
+struct SL_element {
+	struct list_elem elem;
+	void *item;
 };
 
 void sl_init(struct SynchList *sl);

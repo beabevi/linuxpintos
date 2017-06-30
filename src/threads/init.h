@@ -15,6 +15,6 @@ extern uint32_t *base_page_dir;
 /* -q: Power off when kernel tasks complete? */
 extern bool power_off_when_done;
 
-void power_off (void) NO_RETURN;
+void power_off(void) NO_RETURN;
 
 #endif /* threads/init.h */

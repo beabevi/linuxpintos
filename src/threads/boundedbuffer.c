@@ -14,22 +14,22 @@
 
 void bb_init(struct bounded_buffer *bb, int _size)
 {
-  bb->size = _size;
-  // write your code here
+	bb->size = _size;
+	// write your code here
 }
 
 void bb_destroy(struct bounded_buffer *bb)
 {
-  // write your code here
+	// write your code here
 }
 
 int bb_read(struct bounded_buffer *bb)
 {
-  // write your code here
+	// write your code here
 }
 
 void bb_write(struct bounded_buffer *bb, int value)
 {
-  // write your code here
+	// write your code here
 }
 
